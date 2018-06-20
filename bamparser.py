@@ -83,9 +83,13 @@ if __name__ == "__main__":
 
     times = []
 
-    for sid in BamBam(hive, currentcontrolset).findSIDs():
-        for entry in BamBam(hive, currentcontrolset).getValues(sid):
-            times.append(entry)
+    try:
+        for sid in BamBam(hive, currentcontrolset).findSIDs():
+            for entry in BamBam(hive, currentcontrolset).getValues(sid):
+                times.append(entry)
+    except Registry.RegistryKeyNotFoundException as e:
+        print(e)
+        exit(0)
 
     for time in times:
         print(time[0], time[1], time[2])
